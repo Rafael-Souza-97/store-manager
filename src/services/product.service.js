@@ -1,5 +1,6 @@
 const productsModel = require('../models/product.model');
-const errorCodes = require('../utils/errorsMap');
+const { nameValidation } = require('./validations/nameValidations.service');
+const { HTTP_NOT_FOUND } = require('../utils/errorsMap');
 
 const getProducts = async () => {
   const allProducts = await productsModel.getAllProducts();
@@ -11,7 +12,6 @@ const getProductsById = async (id) => {
   const idProducts = await productsModel.getProductsById(id);
 
   if (!idProducts) {
-    const { HTTP_NOT_FOUND } = errorCodes;
     return { type: HTTP_NOT_FOUND, message: 'Product not found' };
   }
 
@@ -19,6 +19,10 @@ const getProductsById = async (id) => {
 };
 
 const insertProduct = async (product) => {
+  const productError = nameValidation(product.name);
+
+  if (productError.type) return productError;
+
   const resultId = await productsModel.insertProduct(product);
   const result = await productsModel.getProductsById(resultId);
 
