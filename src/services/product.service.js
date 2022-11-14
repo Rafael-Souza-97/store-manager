@@ -23,10 +23,10 @@ const insertProduct = async (product) => {
 
   if (productError.type) return productError;
 
-  const resultId = await productsModel.insertProduct(product);
-  const result = await productsModel.getProductsById(resultId);
+  const newProduct = await productsModel.insertProduct(product);
+  const result = await getProductsById(newProduct);
 
-  return { type: null, message: result };
+  return { type: null, message: result.message };
 };
 
 module.exports = {

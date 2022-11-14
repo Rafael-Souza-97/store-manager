@@ -20,4 +20,10 @@ describe('Testes da camada Model dos Produtos.', function () {
     const products = await productsModel.getProductsById();
     expect(products).to.be.deep.equal(idProduct);;
   });
+
+  it('Verifica se ao adicionar novo produto retorna o ID correto;', async function () {
+    sinon.stub(connection, 'execute').resolves([{ insertId: 99 }]);
+    const newProductId = await productsModel.insertProduct('ProdutoX');
+    expect(newProductId).to.be.deep.equal(99);
+  });
 });

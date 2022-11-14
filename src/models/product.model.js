@@ -13,7 +13,6 @@ const getProductsById = async (id) => {
     'SELECT * FROM StoreManager.products WHERE id = ?',
     [id],
   );
-
   return result;
 };
 
@@ -22,7 +21,7 @@ const insertProduct = async (product) => {
   'INSERT INTO StoreManager.products (name) VALUE (?)',
   [product.name],
   );
-
+  
   return insertId;
 };
 

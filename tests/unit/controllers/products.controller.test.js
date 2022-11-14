@@ -64,7 +64,6 @@ describe('Testes da camada Controller dos Produtos.', function () {
     const req = { params: { id: 99 } };
     const res = {};
 
-
     res.status = sinon.stub().returns(res);
     res.json = sinon.stub().returns();
 
@@ -72,5 +71,37 @@ describe('Testes da camada Controller dos Produtos.', function () {
 
     expect(res.status).to.have.been.calledWith(404);
     expect(res.json).to.have.been.calledWith({ message: 'Product not found' });
+  });
+
+  it('Verifica se é possível adicionar novo produto;', async function () {
+    sinon.stub(productsService, 'insertProduct')
+    .resolves({ type: null, message: { id: 4, name: "Novo Produto" } });
+
+    const req = { body: { name: 'Novo Produto' } };
+    const res = {};
+
+    res.status = sinon.stub().returns(res);
+    res.json = sinon.stub().returns();
+
+    await productsController.insertProduct(req, res);
+
+    expect(res.status).to.have.been.calledWith(201);
+    expect(res.json).to.have.been.calledWith({ id: 4, name: 'Novo Produto' });
+  });
+
+  it('Verifica se é possível adicionar novo produto;', async function () {
+    sinon.stub(productsService, 'insertProduct')
+    .resolves({ type: 500, message: 'Erro Interno do Servidor' });
+
+    const req = { body: { name: 'Novo Produto' } };
+    const res = {};
+
+    res.status = sinon.stub().returns(res);
+    res.json = sinon.stub().returns();
+
+    await productsController.insertProduct(req, res);
+
+    expect(res.status).to.have.been.calledWith(500);
+    expect(res.json).to.have.been.calledWith({ message: 'Erro Interno do Servidor' });
   });
 });
