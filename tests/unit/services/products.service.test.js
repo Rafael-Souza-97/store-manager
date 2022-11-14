@@ -36,14 +36,13 @@ describe('Testes da camada Service dos Produtos.', function () {
   });
 
   it('Verifica se retorna o produto adicionado;', async function () {
-    sinon.stub(productsModel, 'insertProduct').resolves(1);
+    sinon.stub(productsModel, 'insertProduct').resolves([{ idProduct: 4 }]);
+    sinon.stub(productsModel, 'getProductsById').resolves({ name: 'Novo Produto' });
 
-    const response = { type: null, message: idProduct };
-    const product = await productsService.insertProduct({ name: 'Martelo do Thor' });
+    const response = { type: null, message: { name: 'Novo Produto' }};
+    const product = await productsService.insertProduct({ name: 'Novo Produto' });
 
     expect(product).to.be.deep.equal(response);
-
-    sinon.restore
   });
 
   it('Verifica se retorna erro ao passar o "name" com menos de 5 caracteres;', async function () {
