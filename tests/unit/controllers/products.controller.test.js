@@ -89,7 +89,7 @@ describe('Testes da camada Controller dos Produtos.', function () {
     expect(res.json).to.have.been.calledWith({ id: 4, name: 'Novo Produto' });
   });
 
-  it('Verifica se é possível adicionar novo produto;', async function () {
+  it('Verifica se é retornado um erro em caso de falha no servidor;', async function () {
     sinon.stub(productsService, 'insertProduct')
     .resolves({ type: 500, message: 'Erro Interno do Servidor' });
 

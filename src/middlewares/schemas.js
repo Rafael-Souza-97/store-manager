@@ -6,7 +6,12 @@ const nameValidation = joi.object({
 
 const nameLengthValidation = joi.string().min(5).required();
 
+const salesValidation = joi.object({
+  productId: joi.number().integer().required(),
+}).required();
+
 module.exports = {
   nameValidation,
   nameLengthValidation,
+  salesValidation,
 };
