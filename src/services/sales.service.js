@@ -1,7 +1,5 @@
 const salesModel = require('../models/sales.model');
 
-// const { salesValidation } = require('./validations/salesValidations.service');
-
 const insertSales = async (sales) => {
   const saleId = await salesModel.getSalesId();
 
