@@ -2,7 +2,7 @@ const chai = require('chai');
 const { expect } = chai;
 const sinon = require('sinon');
 
-const { allProducts, idProduct } = require('../../mocks/products.controller.mock');
+const { allProducts, idProduct } = require('../../mocks/products.mock');
 const productsModel = require('../../../src/models/product.model');
 const connection = require('../../../src/models/db/connection');
 
@@ -18,10 +18,10 @@ describe('Testes da camada Model dos Produtos.', function () {
   it('Verifica se exibe os produtos pelo ID;', async function () {
     sinon.stub(connection, 'execute').resolves([[idProduct]]);
     const products = await productsModel.getProductsById();
-    expect(products).to.be.deep.equal(idProduct);;
+    expect(products).to.be.deep.equal(idProduct);
   });
 
-  it('Verifica se ao adicionar novo produto retorna o ID correto;', async function () {
+  it('Verifica se ao adicionar novo produto, retorna o ID correto;', async function () {
     sinon.stub(connection, 'execute').resolves([{ insertId: 99 }]);
     const newProductId = await productsModel.insertProduct('ProdutoX');
     expect(newProductId).to.be.deep.equal(99);

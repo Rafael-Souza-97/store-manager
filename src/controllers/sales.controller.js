@@ -19,10 +19,8 @@ const insertSales = async (req, res) => {
   if (!valideId) {
     return res.status(HTTP_NOT_FOUND).json({ message: 'Product not found' });
   } 
-    const { type, message } = await salesService.insertSales(sales);
+    const { message } = await salesService.insertSales(sales);
 
-    if (type) return res.status(type).json({ message });
-  
     res.status(201).json(message);
 };
 
