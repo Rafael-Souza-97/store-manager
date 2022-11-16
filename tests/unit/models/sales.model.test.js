@@ -26,6 +26,6 @@ describe('Testes da camada Model das Vendas.', function () {
 
     const sales = await salesModel.insertSales(4, saleInsertModel);
 
-    expect(sales).to.be.deep.equal(saleInsertModelReturn);;
+    expect(sales).to.be.deep.equal(saleInsertModelReturn);
   });
 });
