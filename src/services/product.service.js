@@ -34,7 +34,6 @@ const updateProduct = async (id, product) => {
   if (productError.type) return productError;
 
   const { type } = await getProductsById(id);
-
   if (type) return { type, message: 'Product not found' };
   
   const update = await productsModel.updateProducts(id, product);
