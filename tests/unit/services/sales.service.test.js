@@ -34,7 +34,7 @@ describe('Testes da camada Service das Vendas.', function () {
     expect(result).to.be.a('object');
   });
 
-  it('Verifica se retorna uma mensagem de erro quando não encontra a venda', async function () {
+  it('Verifica se retorna uma mensagem de erro quando não encontra a venda;', async function () {
     sinon.stub(salesModel, 'getSalesById').resolves(undefined);
 
     const response = { type: HTTP_NOT_FOUND, message: saleNotFoundMessage.message };
