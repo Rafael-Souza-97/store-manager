@@ -10,7 +10,8 @@ const getAllProducts = async () => {
 
 const getProductsById = async (id) => {
   const [[result]] = await connection.execute(
-    'SELECT * FROM StoreManager.products WHERE id = ?',
+    `SELECT * FROM StoreManager.products
+    WHERE id = ?`,
     [id],
   );
 
@@ -19,15 +20,27 @@ const getProductsById = async (id) => {
 
 const insertProduct = async (product) => {
   const [{ insertId }] = await connection.execute(
-  'INSERT INTO StoreManager.products (name) VALUE (?)',
+  `INSERT INTO StoreManager.products (name)
+  VALUE (?)`,
   [product.name],
   );
   
   return insertId;
 };
 
+const updateProducts = async (id, { name }) => {
+  await connection.execute(`
+  UPDATE StoreManager.products
+  SET name = ?
+  WHERE id = ?`,
+  [name, id]);
+
+  return { id, name };
+};
+
 module.exports = {
   getAllProducts,
   getProductsById,
   insertProduct,
+  updateProducts,
 };
