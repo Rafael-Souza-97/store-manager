@@ -103,10 +103,6 @@ const salesById = [
   }
 ];
 
-const productNotFoundMessage = {
-  "message": "Product not found"
-};
-
 const saleNotFoundMessage = {
   "message": "Sale not found"
 };
@@ -122,6 +118,5 @@ module.exports = {
   saleControllerInsert,
   salesById,
   salesProductsService,
-  productNotFoundMessage,
   saleNotFoundMessage,
 }

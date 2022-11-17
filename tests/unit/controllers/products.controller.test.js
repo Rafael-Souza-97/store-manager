@@ -104,4 +104,66 @@ describe('Testes da camada Controller dos Produtos.', function () {
     expect(res.status).to.have.been.calledWith(500);
     expect(res.json).to.have.been.calledWith({ message: 'Erro Interno do Servidor' });
   });
+
+  it('Verifica se é possível atualizar/modificar um produto pelo seu ID;', async function () {
+    sinon.stub(productsService, 'updateProduct').resolves({ type: null, message: { id: 1, name: "Capa do Homem de Ferro" }});
+
+    const req = { params: { id: 1 }, body: { name: "Capa do Homem de Ferro" } };
+    const res = {};
+
+    res.status = sinon.stub().returns(res);
+    res.json = sinon.stub().returns();
+
+    await productsController.updateProduct(req, res);
+
+    expect(res.status).to.have.been.calledWith(200);
+    expect(res.json).to.have.been.calledWith({ id: 1, name: "Capa do Homem de Ferro" });;
+  });
+
+  it('Verifica se retorna erro ao passar o "name" com menos de 5 caracteres;', async function () {
+    sinon.stub(productsService, 'updateProduct').resolves({ type: 422, message: '\"name\" length must be at least 5 characters long'});
+
+    const req = { params: { id: 1 }, body: { name: "test" } };
+    const res = {};
+
+    res.status = sinon.stub().returns(res);
+    res.json = sinon.stub().returns();
+
+    const product = await productsController.updateProduct(req, res);
+
+    expect(product).to.be.undefined;
+  });
+
+  it('Verifica se é retornado um erro em caso de falha ao deletar um produto pelo seu ID;', async function () {
+    sinon.stub(productsService, 'deleteProduct').resolves({
+      type: null, message: 1
+    });
+
+    const req = { params: { id: 1 } };
+    const res = {};
+
+    res.status = sinon.stub().returns(res); 
+    res.json = sinon.stub().returns();
+
+    await productsController.deleteProduct(req, res);
+
+    expect(res.status).to.have.been.calledWith(204);
+  });
+
+  it('Verifica se é retornado um erro em caso de falha ao deletar um produto pelo seu ID;', async function () {
+    sinon.stub(productsService, 'deleteProduct').resolves({
+      type: 404, message: 'Product not found'
+    });
+
+    const req = { params: { id: 1 } };
+    const res = {};
+
+    res.status = sinon.stub().returns(res); 
+    res.json = sinon.stub().returns();
+
+    await productsController.deleteProduct(req, res);
+
+    expect(res.status).to.have.been.calledWith(404);
+    expect(res.json).to.have.been.calledWith({message:'Product not found'})
+  });
 });

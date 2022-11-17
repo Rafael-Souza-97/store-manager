@@ -18,7 +18,12 @@ const idProduct = {
   "name": "Martelo de Thor"
 }
 
+const productNotFoundMessage = {
+  "message": "Product not found"
+};
+
 module.exports = {
   allProducts,
   idProduct,
+  productNotFoundMessage,
 }

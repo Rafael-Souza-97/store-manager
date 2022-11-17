@@ -32,4 +32,20 @@ describe('Testes da camada Model dos Produtos.', function () {
 
     expect(newProductId).to.be.deep.equal(99);
   });
+
+  it('Verifica se é possível atualizar um produto através do seu ID;', async function () {
+    sinon.stub(connection, 'execute').resolves([{ affectedRows: 1 }]);
+
+    const result = await productsModel.updateProducts(1, { name: "Capa do Homem de Ferro" });
+  
+    expect(result).to.be.deep.equal({ id: 1, name: "Capa do Homem de Ferro" });
+  });
+
+  it('Verifica se é possível deletar um produto através do seu ID;', async function () {
+    sinon.stub(connection, 'execute').resolves([{ insertId: 1 }]);
+
+    const deletedProduct = await productsModel.deleteProduct(1);
+
+    expect(deletedProduct).to.be.deep.equal({ id: 1 });
+  });
 });

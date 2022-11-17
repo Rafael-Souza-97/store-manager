@@ -26,7 +26,7 @@ describe('Testes da camada Service das Vendas.', function () {
     expect(salesById).to.be.deep.equal(response);
   });
 
-  it('Verifica se as vendas pelo ID;', async function () {
+  it('Verifica as vendas pelo ID;', async function () {
     sinon.stub(salesModel, 'getSalesById').resolves(salesById);
 
     const result = await salesService.getSalesById(1);

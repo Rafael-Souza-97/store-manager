@@ -14,7 +14,6 @@ const getProductsById = async (id) => {
     WHERE id = ?`,
     [id],
   );
-
   return result;
 };
 
@@ -46,6 +45,7 @@ const deleteProduct = async (id) => {
 
   return { id };
 };
+
 module.exports = {
   getAllProducts,
   getProductsById,

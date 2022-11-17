@@ -11,10 +11,10 @@ const {
   saleControllerInsert,
   invalidSale,
   saleNotFoundMessage,
-  productNotFoundMessage,
   tableSales,
   salesById,
 } = require('../../mocks/sales.mock');
+const { productNotFoundMessage } = require('../../mocks/products.mock');
 const { HTTP_NOT_FOUND } = require('../../../src/utils/errorsMap');
 
 describe('Testes da camada Controller das Vendas.', function () {
