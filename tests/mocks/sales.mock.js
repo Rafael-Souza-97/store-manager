@@ -6,21 +6,34 @@ const tableSales = [
 const tableSalesProducts = [
   [
     {
-      "sale_id": 1,
-      "product_id": 1,
+      "saleId": 1,
+      "productId": 1,
       "quantity": 5,
     },
     {
-      "sale_id": 1,
-      "product_id": 2,
+      "saleId": 1,
+      "productId": 2,
       "quantity": 10,
     },
     {
-      "sale_id": 2,
-      "product_id": 3,
+      "saleId": 2,
+      "productId": 3,
       "quantity": 15,
     },
   ]
+];
+
+const salesProductsService = [
+  {
+    "date": "2022-11-15T17:41:51.000Z",
+    "productId": 1,
+    "quantity": 5
+  },
+  {
+    "date": "2022-11-15T17:41:51.000Z",
+    "productId": 2,
+    "quantity": 10
+  }
 ];
 
 const insertServiceSale = {
@@ -66,10 +79,6 @@ const saleInsertModelReturn = {
       "quantity": 1
 };
 
-const ProductNotFoundMessage = {
-  "message": "Product not found"
-};
-
 const invalidSale = [
   {
     "productId": 100,
@@ -81,14 +90,38 @@ const invalidSale = [
   }
 ];
 
+const salesById = [
+  {
+    "date": "2022-11-12T23:16:29.000Z",
+    "productId": 1,
+    "quantity": 5
+  },
+  {
+    "date": "2022-11-12T23:16:29.000Z",
+    "productId": 2,
+    "quantity": 10
+  }
+];
+
+const productNotFoundMessage = {
+  "message": "Product not found"
+};
+
+const saleNotFoundMessage = {
+  "message": "Sale not found"
+};
+
 module.exports = {
   tableSales,
   tableSalesProducts,
   insertServiceSale,
   saleInsert,
   saleInsertModelReturn,
-  ProductNotFoundMessage,
   invalidSale,
   saleInsertModel,
   saleControllerInsert,
+  salesById,
+  salesProductsService,
+  productNotFoundMessage,
+  saleNotFoundMessage,
 }

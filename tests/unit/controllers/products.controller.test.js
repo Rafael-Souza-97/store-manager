@@ -12,7 +12,7 @@ const productsService = require('../../../src/services/product.service');
 describe('Testes da camada Controller dos Produtos.', function () {
   afterEach(sinon.restore);
 
-  it('Exibir todos os produtos;', async function () {
+  it('Verifica se é possível exibir todos os produtos;', async function () {
     const req = {};
     const res = {};
 
@@ -27,7 +27,7 @@ describe('Testes da camada Controller dos Produtos.', function () {
     expect(res.json).to.have.been.calledWith(allProducts);
   });
 
-  it('Retorna erro caso não encontre os produtos;', async function () {
+  it('Verifica se retorna erro caso não encontre os produtos;', async function () {
     const req = {};
     const res = {};
 
@@ -42,7 +42,7 @@ describe('Testes da camada Controller dos Produtos.', function () {
     expect(res.json).to.have.been.calledWith({ message: 'Os Produtos não foram encontrados' });
   });
 
-  it('Exibir o produto do ID requisitado;', async function () {
+  it('Verifica se exibe o produto do ID requisitado;', async function () {
     sinon.stub(productsService, 'getProductsById').resolves({ type: null, message: idProduct });
 
     const req = { params: { id: 1 } };
@@ -58,7 +58,7 @@ describe('Testes da camada Controller dos Produtos.', function () {
     expect(res.json).to.have.been.calledWith(idProduct);
   });
   
-  it('Retorna status 404 - "Product not found" se o ID não for encontrado;', async function () {
+  it('Verifica se retorna status 404 - "Product not found" se o ID não for encontrado;', async function () {
     sinon.stub(productsService, 'getProductsById').resolves({ type: 404, message: 'Product not found' });
 
     const req = { params: { id: 99 } };

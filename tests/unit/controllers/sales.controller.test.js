@@ -10,14 +10,78 @@ const salesController = require('../../../src/controllers/sales.controller');
 const {
   saleControllerInsert,
   invalidSale,
-  ProductNotFoundMessage,
+  saleNotFoundMessage,
+  productNotFoundMessage,
+  tableSales,
+  salesById,
 } = require('../../mocks/sales.mock');
 const { HTTP_NOT_FOUND } = require('../../../src/utils/errorsMap');
 
 describe('Testes da camada Controller das Vendas.', function () {
   afterEach(sinon.restore);
 
-  it('Verifica se é possível cadastrar uma venda;', async function () {
+  it('Verifica se é possível exibir todos as vendas;', async function () {
+    sinon.stub(salesService, 'getSales').resolves({ type: null, message: tableSales });
+
+    const req = {};
+    const res = {};
+
+    res.status = sinon.stub().returns(res);
+    res.json = sinon.stub().returns();
+
+    await salesController.getSales(req, res);
+
+    expect(res.status).to.have.been.calledWith(200);
+    expect(res.json).to.have.been.calledWith(tableSales);
+  });
+
+  it('Verifica se retorna erro caso não encontre as vendas;', async function () {
+    sinon.stub(salesService, 'getSales').resolves({ type: HTTP_NOT_FOUND, message: 'Os Produtos não foram encontrados' });
+
+    const req = {};
+    const res = {};
+
+    res.status = sinon.stub().returns(res);
+    res.json = sinon.stub().returns();
+
+    await salesController.getSales(req, res);
+
+    expect(res.status).to.have.been.calledWith(HTTP_NOT_FOUND);
+    expect(res.json).to.have.been.calledWith({ message: 'Os Produtos não foram encontrados' });
+  });
+
+  it('Verifica se é possível exibir a venda do ID requisitado;', async function () {
+    sinon.stub(salesService, 'getSalesById').resolves({ type: null, message: salesById });
+
+    const req = { params: { id: 1 } };
+    const res = {};
+
+
+    res.status = sinon.stub().returns(res);
+    res.json = sinon.stub().returns();
+
+    await salesController.getSalesById(req, res);
+
+    expect(res.status).to.have.been.calledWith(200);
+    expect(res.json).to.have.been.calledWith(salesById);
+  });
+  
+  it('Retorna status 404 - "Sale not found" se o ID não for encontrado;', async function () {
+    sinon.stub(salesService, 'getSalesById').resolves({ type: HTTP_NOT_FOUND, message: 'Sale not found' });
+
+    const req = { params: { id: 99 } };
+    const res = {};
+
+    res.status = sinon.stub().returns(res);
+    res.json = sinon.stub().returns();
+
+    await salesController.getSalesById(req, res);
+
+    expect(res.status).to.have.been.calledWith(HTTP_NOT_FOUND);
+    expect(res.json).to.have.been.calledWith(saleNotFoundMessage);
+  });
+
+  it('Verifica se é possível inserir uma nova venda;', async function () {
     sinon.stub(salesService, 'insertSales').resolves(saleControllerInsert);
 
     const res = { };
@@ -42,6 +106,6 @@ describe('Testes da camada Controller das Vendas.', function () {
     await salesController.insertSales(req, res);
 
     expect(res.status).to.have.been.calledWith(HTTP_NOT_FOUND);
-    expect(res.json).to.have.been.calledWith(ProductNotFoundMessage);
+    expect(res.json).to.have.been.calledWith(productNotFoundMessage);
   });
 });
