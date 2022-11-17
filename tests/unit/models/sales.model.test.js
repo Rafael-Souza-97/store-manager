@@ -46,4 +46,12 @@ describe('Testes da camada Model das Vendas.', function () {
 
     expect(sales).to.be.deep.equal(saleInsertModelReturn);
   });
+
+  it('Verifica se é possível deletar uma venda através do seu ID;', async function () {
+    sinon.stub(connection, 'execute').resolves([{ insertId: 1 }]);
+
+    const deletedSale = await salesModel.deleteSale(1);
+
+    expect(deletedSale).to.be.deep.equal({ id: 1 });
+  });
 });

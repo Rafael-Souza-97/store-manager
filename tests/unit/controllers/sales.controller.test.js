@@ -108,4 +108,37 @@ describe('Testes da camada Controller das Vendas.', function () {
     expect(res.status).to.have.been.calledWith(HTTP_NOT_FOUND);
     expect(res.json).to.have.been.calledWith(productNotFoundMessage);
   });
+
+  it('Verifica se é retornado um erro em caso de falha ao deletar uma venda pelo seu ID;', async function () {
+    sinon.stub(salesService, 'deleteSale').resolves({
+      type: null, message: 1
+    });
+
+    const req = { params: { id: 1 } };
+    const res = {};
+
+    res.status = sinon.stub().returns(res); 
+    res.json = sinon.stub().returns();
+
+    await salesController.deleteSale(req, res);
+
+    expect(res.status).to.have.been.calledWith(204);
+  });
+
+  it('Verifica se é retornado um erro em caso de falha ao deletar uma venda pelo seu ID;', async function () {
+    sinon.stub(salesService, 'deleteSale').resolves({
+      type: HTTP_NOT_FOUND, message: saleNotFoundMessage.message,
+    });
+
+    const req = { params: { id: 1 } };
+    const res = {};
+
+    res.status = sinon.stub().returns(res); 
+    res.json = sinon.stub().returns();
+
+    await salesController.deleteSale(req, res);
+
+    expect(res.status).to.have.been.calledWith(HTTP_NOT_FOUND);
+    expect(res.json).to.have.been.calledWith({ message: saleNotFoundMessage.message })
+  });
 });

@@ -52,4 +52,26 @@ describe('Testes da camada Service das Vendas.', function () {
 
     expect(sales).to.be.deep.equal(response);
   });
+
+  it('Verifica se é possível deletar uma venda pelo seu ID;', async function () {
+    sinon.stub(salesModel, 'getSalesById').resolves(1);
+    sinon.stub(salesModel, 'deleteSale').resolves(1);
+
+    const response = { type: null, message: 1 };
+    const deleted = await salesService.deleteSale(1);
+
+    expect(deleted).to.be.deep.equal(response);
+  });
+
+  it('Verifica se retorna erro ao deletar uma venda com ID inexistente;', async function () {
+    sinon.stub(salesModel, 'getSalesById').resolves(null);
+
+    const result = await salesService.deleteSale(1);
+
+    expect(result).to.be.a('object');
+    expect(result).to.be.deep.equal({
+      type: HTTP_NOT_FOUND,
+      message: saleNotFoundMessage.message,
+    });
+  });
 });
