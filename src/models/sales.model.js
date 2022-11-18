@@ -23,7 +23,6 @@ const getSalesById = async (id) => {
     ORDER BY id, product_id`,
     [id],
   );
-
   return camelize(result);
 };
 
@@ -42,6 +41,17 @@ const insertSales = async (saleId, { productId, quantity }) => {
   );
 
   return { saleId, productId, quantity };
+};
+
+const updateSales = async (id, { productId, quantity }) => {
+  await connection.execute(`
+  UPDATE StoreManager.sales_products 
+  SET quantity = ? 
+  WHERE sale_id = ? 
+  AND product_id = ?`,
+  [quantity, id, productId]);
+
+  return { id, productId, quantity };
 };
 
 const deleteSale = async (id) => {
@@ -64,4 +74,5 @@ module.exports = {
   getSalesId,
   insertSales,
   deleteSale,
+  updateSales,
 };

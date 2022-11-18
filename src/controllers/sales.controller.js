@@ -1,5 +1,6 @@
 const salesService = require('../services/sales.service');
 const productsModel = require('../models/product.model');
+
 const { HTTP_NOT_FOUND } = require('../utils/errorsMap');
 
 const getSales = async (_req, res) => {
@@ -43,6 +44,17 @@ const insertSales = async (req, res) => {
     res.status(201).json(message);
 };
 
+const updateSale = async (req, res) => {
+  const { id } = req.params;
+  const saleId = Number(id);
+
+  const { type, message } = await salesService.updateSale(saleId, req.body);
+
+  if (type) return res.status(type).json({ message });
+
+  return res.status(200).json(message);
+};
+
 const deleteSale = async (req, res) => {
   const { id } = req.params;
 
@@ -58,4 +70,5 @@ module.exports = {
   getSalesById,
   insertSales,
   deleteSale,
+  updateSale,
 };
