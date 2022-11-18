@@ -89,10 +89,10 @@ npm install
  
 ### Rodando a aplicação SEM [Docker](https://www.docker.com/)
 
-  > :warning: Para rodar a aplicação desta forma, obrigatoriamente você deve ter o [Node](https://nodejs.org/en/) instalado em seu computador.
-  > :warning: Atenção: Não esqueça de renomear/configurar o arquivo .env.example para os testes locais funcionarem.
+ > :warning: Para rodar a aplicação desta forma, obrigatoriamente você deve ter o [Node](https://nodejs.org/en/) instalado em seu computador.
+ > :warning: Atenção: Não esqueça de renomear/configurar o arquivo .env.example para os testes locais funcionarem.
  
- <br>
+<br>
 
 - Clone o repositório `git@github.com:Rafael-Souza-97/store-manager.git`:
 
@@ -131,8 +131,6 @@ cd store-manager
 ```sh
   npm run test:mocha
 ```
-
-<br>
 
 </details>
   
