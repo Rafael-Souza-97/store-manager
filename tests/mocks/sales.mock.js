@@ -103,6 +103,29 @@ const salesById = [
   }
 ];
 
+const updateSaleModel = {
+  "id": 1,
+  "productId": 2,
+  "quantity": 5
+};
+
+const updateSaleService = [
+  {
+    "id": 1,
+    "productId": 1,
+    "quantity": 5
+  },
+  {
+    "id": 1,
+    "productId": 1,
+    "quantity": 5
+  }
+];
+
+const serviceSaleResponse = [
+  { type: null, message: { id: 1, name: 'Martelo de Thor' } }
+]
+
 const saleNotFoundMessage = {
   "message": "Sale not found"
 };
@@ -110,13 +133,16 @@ const saleNotFoundMessage = {
 module.exports = {
   tableSales,
   tableSalesProducts,
+  salesProductsService,
   insertServiceSale,
   saleInsert,
+  saleControllerInsert,
+  saleInsertModel,
   saleInsertModelReturn,
   invalidSale,
-  saleInsertModel,
-  saleControllerInsert,
   salesById,
-  salesProductsService,
+  updateSaleModel,
+  updateSaleService,
+  serviceSaleResponse,
   saleNotFoundMessage,
 }

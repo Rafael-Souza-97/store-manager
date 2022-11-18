@@ -8,6 +8,7 @@ const {
   saleInsertModel,
   tableSales,
   salesById,
+  updateSaleModel,
  } = require('../../mocks/sales.mock');
 const salesModel = require('../../../src/models/sales.model');
 const connection = require('../../../src/models/db/connection');
@@ -45,6 +46,14 @@ describe('Testes da camada Model das Vendas.', function () {
     const sales = await salesModel.insertSales(4, saleInsertModel);
 
     expect(sales).to.be.deep.equal(saleInsertModelReturn);
+  });
+
+  it('Verifica se é possível atualizar/Modificar uma venda através do seu ID;', async function () {
+    sinon.stub(connection, 'execute').resolves(updateSaleModel);
+
+    const result = await salesModel.updateSales(1, { "productId":2 ,"quantity":5 });
+  
+    expect(result).to.be.deep.equal(updateSaleModel);
   });
 
   it('Verifica se é possível deletar uma venda através do seu ID;', async function () {

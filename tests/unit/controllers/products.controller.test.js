@@ -75,9 +75,9 @@ describe('Testes da camada Controller dos Produtos.', function () {
 
   it('Verifica se é possível adicionar novo produto;', async function () {
     sinon.stub(productsService, 'insertProduct')
-    .resolves({ type: null, message: { id: 4, name: "Novo Produto" } });
+    .resolves({ type: null, message: { id: 4, name: "Capa do Homem de Ferro" } });
 
-    const req = { body: { name: 'Novo Produto' } };
+    const req = { body: { name: 'Capa do Homem de Ferro' } };
     const res = {};
 
     res.status = sinon.stub().returns(res);
@@ -86,14 +86,14 @@ describe('Testes da camada Controller dos Produtos.', function () {
     await productsController.insertProduct(req, res);
 
     expect(res.status).to.have.been.calledWith(201);
-    expect(res.json).to.have.been.calledWith({ id: 4, name: 'Novo Produto' });
+    expect(res.json).to.have.been.calledWith({ id: 4, name: 'Capa do Homem de Ferro' });
   });
 
   it('Verifica se é retornado um erro em caso de falha no servidor;', async function () {
     sinon.stub(productsService, 'insertProduct')
     .resolves({ type: 500, message: 'Erro Interno do Servidor' });
 
-    const req = { body: { name: 'Novo Produto' } };
+    const req = { body: { name: 'Capa do Homem de Ferro' } };
     const res = {};
 
     res.status = sinon.stub().returns(res);

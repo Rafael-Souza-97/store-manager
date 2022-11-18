@@ -66,7 +66,7 @@ describe('Testes da camada Controller das Vendas.', function () {
     expect(res.json).to.have.been.calledWith(salesById);
   });
   
-  it('Retorna status 404 - "Sale not found" se o ID não for encontrado;', async function () {
+  it('Verifica se retorna status 404 - "Sale not found" se o ID não for encontrado;', async function () {
     sinon.stub(salesService, 'getSalesById').resolves({ type: HTTP_NOT_FOUND, message: 'Sale not found' });
 
     const req = { params: { id: 99 } };
@@ -107,6 +107,52 @@ describe('Testes da camada Controller das Vendas.', function () {
 
     expect(res.status).to.have.been.calledWith(HTTP_NOT_FOUND);
     expect(res.json).to.have.been.calledWith(productNotFoundMessage);
+  });
+
+  it('Verifica se é possível atualizar/modificar uma venda pelo seu ID;', async function () {
+    sinon.stub(salesService, 'updateSale').resolves({ type: null, message: { saleId: 1, itemsUpdated: tableSales }});
+
+    const req = { body: { tableSales }, params: { id: 1 } };
+    const res = {};
+
+    res.status = sinon.stub().returns(res);
+    res.json = sinon.stub().returns();
+
+    await salesController.updateSale(req, res);
+
+    expect(res.status).to.have.been.calledWith(200);
+    expect(res.json).to.have.been.calledWith({ saleId: 1, itemsUpdated: tableSales });;
+  });
+
+  it('Verifica se é possível atualizar/modificar uma venda pelo seu ID;', async function () {
+    sinon.stub(salesService, 'updateSale').resolves({ type: null, message: { saleId: 1, itemsUpdated: tableSales }});
+
+    const req = { body: { tableSales }, params: { id: 1 } };
+    const res = {};
+
+    res.status = sinon.stub().returns(res);
+    res.json = sinon.stub().returns();
+
+    await salesController.updateSale(req, res);
+
+    expect(res.status).to.have.been.calledWith(200);
+    expect(res.json).to.have.been.calledWith({ saleId: 1, itemsUpdated: tableSales });;
+  });
+
+  it('Verifica se retorna erro ao atualizar/modificar caso os dados estejam incorretos;', async function () {
+    sinon.stub(salesService, 'updateSale')
+    .resolves({ type: 500, message: 'Erro Interno do Servidor' });
+
+    const req = { params: { id :1 }, body: saleControllerInsert  };
+    const res = {};
+
+    res.status = sinon.stub().returns(res);
+    res.json = sinon.stub().returns();
+
+    await salesController.updateSale(req, res);
+
+    expect(res.status).to.have.been.calledWith(500);
+    expect(res.json).to.have.been.calledWith({ message: 'Erro Interno do Servidor' });
   });
 
   it('Verifica se é retornado um erro em caso de falha ao deletar uma venda pelo seu ID;', async function () {
