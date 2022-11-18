@@ -2,7 +2,12 @@ const chai = require('chai');
 const { expect } = chai;
 const sinon = require('sinon');
 
-const { allProducts, idProduct, productNotFoundMessage } = require('../../mocks/products.mock');
+const {
+  allProducts,
+  idProduct,
+  productNotFoundMessage,
+  queryReturn,
+} = require('../../mocks/products.mock');
 const productsModel = require('../../../src/models/product.model');
 const productsService = require('../../../src/services/product.service');
 const { HTTP_NOT_FOUND, HTTP_UNPROCESSABLE_ENTITY } = require('../../../src/utils/errorsMap')
@@ -53,6 +58,24 @@ describe('Testes da camada Service dos Produtos.', function () {
     const product = await productsService.insertProduct({ name: 'test' });
 
     expect(product).to.be.deep.equal(response);
+  });
+
+  it('Verifica se é possivel exibir produto buscando seu nome via query;', async function () {
+    sinon.stub(productsModel, 'getProductByName').resolves(queryReturn);
+
+    const response = { type: null, message: queryReturn }
+    const products = await productsService.getProductByName('Mart')
+
+    expect(products).to.be.deep.equal(response);
+  });
+
+  it('Verifica se retorna erro ao passar query inexistente para buscar um produto;', async function () {
+    sinon.stub(productsModel, 'getProductByName').resolves(undefined);
+
+    const response = { type: HTTP_NOT_FOUND, message: 'Product not found' }
+    const products = await productsService.getProductByName('test')
+
+    expect(products).to.be.deep.equal(response);
   });
 
   it('Verifica se é possível atualizar/modificar um produto pelo seu ID;', async function () {

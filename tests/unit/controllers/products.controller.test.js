@@ -5,7 +5,7 @@ const sinonChai = require('sinon-chai');
 
 chai.use(sinonChai);
 
-const { allProducts, idProduct } = require('../../mocks/products.mock');
+const { allProducts, idProduct, queryReturn } = require('../../mocks/products.mock');
 const productsController = require('../../../src/controllers/product.controller');
 const productsService = require('../../../src/services/product.service');
 
@@ -71,6 +71,22 @@ describe('Testes da camada Controller dos Produtos.', function () {
 
     expect(res.status).to.have.been.calledWith(404);
     expect(res.json).to.have.been.calledWith({ message: 'Product not found' });
+  });
+
+  it('Verifica se é possivel exibir produto buscando seu nome via query;', async function () {
+    sinon.stub(productsService, 'getProductByName').resolves({ type: null, message: queryReturn });
+
+    const req = { query: { q: 'Martelo' } };
+    const res = {};
+
+
+    res.status = sinon.stub().returns(res);
+    res.json = sinon.stub().returns();
+
+    await productsController.getProductByName(req, res);
+
+    expect(res.status).to.have.been.calledWith(200);
+    expect(res.json).to.have.been.calledWith(queryReturn);
   });
 
   it('Verifica se é possível adicionar novo produto;', async function () {

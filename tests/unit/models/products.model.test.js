@@ -2,7 +2,11 @@ const chai = require('chai');
 const { expect } = chai;
 const sinon = require('sinon');
 
-const { allProducts, idProduct } = require('../../mocks/products.mock');
+const {
+  allProducts,
+  idProduct,
+  queryReturn,
+} = require('../../mocks/products.mock');
 const productsModel = require('../../../src/models/product.model');
 const connection = require('../../../src/models/db/connection');
 
@@ -31,6 +35,14 @@ describe('Testes da camada Model dos Produtos.', function () {
     const newProductId = await productsModel.insertProduct('ProdutoX');
 
     expect(newProductId).to.be.deep.equal(99);
+  });
+
+  it('Verifica se é possivel exibir produto buscando seu nome via query;', async function () {
+    sinon.stub(connection, 'execute').resolves([queryReturn]);
+
+    const queryProductName = await productsModel.getProductByName('Mart');
+
+    expect(queryProductName).to.be.deep.equal(queryReturn);
   });
 
   it('Verifica se é possível atualizar um produto através do seu ID;', async function () {

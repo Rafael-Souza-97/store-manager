@@ -25,6 +25,7 @@ const getProductByName = async (name) => {
     LIKE ?`,
     [searchName],
   );
+
   return result;
 };
 
