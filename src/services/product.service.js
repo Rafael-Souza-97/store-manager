@@ -18,6 +18,16 @@ const getProductsById = async (id) => {
   return { type: null, message: idProducts };
 };
 
+const getProductByName = async (name) => {
+  const product = await productsModel.getProductByName(name);
+
+  if (!product) {
+    return { type: HTTP_NOT_FOUND, message: 'Product not found' };
+  }
+
+  return { type: null, message: product };
+};
+
 const insertProduct = async (product) => {
   const productError = nameValidation(product.name);
 
@@ -53,6 +63,7 @@ const deleteProduct = async (id) => {
 module.exports = {
   getProducts,
   getProductsById,
+  getProductByName,
   insertProduct,
   updateProduct,
   deleteProduct,

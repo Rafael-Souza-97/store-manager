@@ -5,9 +5,15 @@ const { productNameValidation } = require('../middlewares/validateProducts.middl
 const productsRouter = express.Router();
 
 productsRouter.get('/', productsController.getProducts);
+
+productsRouter.get('/search', productsController.getProductByName);
+
 productsRouter.get('/:id', productsController.getProductsById);
+
 productsRouter.post('/', productNameValidation, productsController.insertProduct);
+
 productsRouter.put('/:id', productNameValidation, productsController.updateProduct);
+
 productsRouter.delete('/:id', productsController.deleteProduct);
 
 module.exports = productsRouter;
