@@ -17,7 +17,6 @@ const queryReturn = {
   id: 1, name: 'Martelo do Batman'
 };
 
-
 const idProduct = {
   "id": 1,
   "name": "Martelo de Thor"
@@ -32,4 +31,4 @@ module.exports = {
   idProduct,
   productNotFoundMessage,
   queryReturn,
-}
+};

@@ -18,7 +18,7 @@ describe('Testes da camada Service dos Produtos.', function () {
   it('Verifica se exibe todos os produtos;', async function () {
     sinon.stub(productsModel, 'getAllProducts').resolves(allProducts);
 
-    const response = { type: null, message: allProducts }
+    const response = { type: null, message: allProducts };
     const products = await productsService.getProducts();
 
     expect(products).to.be.deep.equal(response);
@@ -63,8 +63,8 @@ describe('Testes da camada Service dos Produtos.', function () {
   it('Verifica se é possivel exibir produto buscando seu nome via query;', async function () {
     sinon.stub(productsModel, 'getProductByName').resolves(queryReturn);
 
-    const response = { type: null, message: queryReturn }
-    const products = await productsService.getProductByName('Mart')
+    const response = { type: null, message: queryReturn };
+    const products = await productsService.getProductByName('Mart');
 
     expect(products).to.be.deep.equal(response);
   });

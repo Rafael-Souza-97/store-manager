@@ -15,7 +15,16 @@ const {
   salesById,
 } = require('../../mocks/sales.mock');
 const { productNotFoundMessage } = require('../../mocks/products.mock');
-const { HTTP_NOT_FOUND } = require('../../../src/utils/errorsMap');
+const {
+  HTTP_NOT_FOUND,
+  HTTP_UNPROCESSABLE_ENTITY,
+  HTTP_SERVIDOR_ERROR,
+} = require('../../../src/utils/errorsMap');
+const {
+  HTTP_STATUS_OK,
+  HTTP_STATUS_CREATED,
+  HTTP_STATUS_NO_CONTENT,
+} = require('../../../src/utils/statusCode');
 
 describe('Testes da camada Controller das Vendas.', function () {
   afterEach(sinon.restore);
@@ -31,7 +40,7 @@ describe('Testes da camada Controller das Vendas.', function () {
 
     await salesController.getSales(req, res);
 
-    expect(res.status).to.have.been.calledWith(200);
+    expect(res.status).to.have.been.calledWith(HTTP_STATUS_OK);
     expect(res.json).to.have.been.calledWith(tableSales);
   });
 
@@ -62,7 +71,7 @@ describe('Testes da camada Controller das Vendas.', function () {
 
     await salesController.getSalesById(req, res);
 
-    expect(res.status).to.have.been.calledWith(200);
+    expect(res.status).to.have.been.calledWith(HTTP_STATUS_OK);
     expect(res.json).to.have.been.calledWith(salesById);
   });
   
@@ -92,7 +101,7 @@ describe('Testes da camada Controller das Vendas.', function () {
 
     await salesController.insertSales(req, res);
 
-    expect(res.status).to.have.been.calledWith(201);
+    expect(res.status).to.have.been.calledWith(HTTP_STATUS_CREATED);
   });
 
   it('Verifica se retorna erro caso o produto não seja encontrado;', async function () {
@@ -120,7 +129,7 @@ describe('Testes da camada Controller das Vendas.', function () {
 
     await salesController.updateSale(req, res);
 
-    expect(res.status).to.have.been.calledWith(200);
+    expect(res.status).to.have.been.calledWith(HTTP_STATUS_OK);
     expect(res.json).to.have.been.calledWith({ saleId: 1, itemsUpdated: tableSales });;
   });
 
@@ -135,13 +144,13 @@ describe('Testes da camada Controller das Vendas.', function () {
 
     await salesController.updateSale(req, res);
 
-    expect(res.status).to.have.been.calledWith(200);
+    expect(res.status).to.have.been.calledWith(HTTP_STATUS_OK);
     expect(res.json).to.have.been.calledWith({ saleId: 1, itemsUpdated: tableSales });;
   });
 
   it('Verifica se retorna erro ao atualizar/modificar caso os dados estejam incorretos;', async function () {
     sinon.stub(salesService, 'updateSale')
-    .resolves({ type: 500, message: 'Erro Interno do Servidor' });
+    .resolves({ type: HTTP_SERVIDOR_ERROR, message: 'Erro Interno do Servidor' });
 
     const req = { params: { id :1 }, body: saleControllerInsert  };
     const res = {};
@@ -151,7 +160,7 @@ describe('Testes da camada Controller das Vendas.', function () {
 
     await salesController.updateSale(req, res);
 
-    expect(res.status).to.have.been.calledWith(500);
+    expect(res.status).to.have.been.calledWith(HTTP_SERVIDOR_ERROR);
     expect(res.json).to.have.been.calledWith({ message: 'Erro Interno do Servidor' });
   });
 
@@ -168,7 +177,7 @@ describe('Testes da camada Controller das Vendas.', function () {
 
     await salesController.deleteSale(req, res);
 
-    expect(res.status).to.have.been.calledWith(204);
+    expect(res.status).to.have.been.calledWith(HTTP_STATUS_NO_CONTENT);
   });
 
   it('Verifica se é retornado um erro em caso de falha ao deletar uma venda pelo seu ID;', async function () {

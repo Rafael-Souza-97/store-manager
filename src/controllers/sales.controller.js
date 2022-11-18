@@ -2,13 +2,18 @@ const salesService = require('../services/sales.service');
 const productsModel = require('../models/product.model');
 
 const { HTTP_NOT_FOUND } = require('../utils/errorsMap');
+const {
+  HTTP_STATUS_OK,
+  HTTP_STATUS_CREATED,
+  HTTP_STATUS_NO_CONTENT,
+} = require('../utils/statusCode');
 
 const getSales = async (_req, res) => {
   const { type, message } = await salesService.getSales();
 
   if (type) return res.status(type).json({ message });
 
-  return res.status(200).json(message);
+  return res.status(HTTP_STATUS_OK).json(message);
 };
 
 const getSalesById = async (req, res) => {
@@ -18,7 +23,7 @@ const getSalesById = async (req, res) => {
 
   if (type) return res.status(type).json({ message });
 
-  return res.status(200).json(message);
+  return res.status(HTTP_STATUS_OK).json(message);
 };
 
 const insertSales = async (req, res) => {
@@ -41,7 +46,7 @@ const insertSales = async (req, res) => {
   } 
     const { message } = await salesService.insertSales(sales);
 
-    res.status(201).json(message);
+    res.status(HTTP_STATUS_CREATED).json(message);
 };
 
 const updateSale = async (req, res) => {
@@ -52,7 +57,7 @@ const updateSale = async (req, res) => {
 
   if (type) return res.status(type).json({ message });
 
-  return res.status(200).json(message);
+  return res.status(HTTP_STATUS_OK).json(message);
 };
 
 const deleteSale = async (req, res) => {
@@ -62,7 +67,7 @@ const deleteSale = async (req, res) => {
 
   if (type) return res.status(type).json({ message });
 
-  return res.status(204).json(message);
+  return res.status(HTTP_STATUS_NO_CONTENT).json(message);
 };
 
 module.exports = {

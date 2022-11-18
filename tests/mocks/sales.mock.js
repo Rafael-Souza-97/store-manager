@@ -71,7 +71,7 @@ const saleControllerInsert = [
 const saleInsertModel = {
     "productId": 1,
     "quantity": 1
- }
+};
 
 const saleInsertModelReturn = {
       "saleId": 4,
@@ -124,7 +124,7 @@ const updateSaleService = [
 
 const serviceSaleResponse = [
   { type: null, message: { id: 1, name: 'Martelo de Thor' } }
-]
+];
 
 const saleNotFoundMessage = {
   "message": "Sale not found"
@@ -145,4 +145,4 @@ module.exports = {
   updateSaleService,
   serviceSaleResponse,
   saleNotFoundMessage,
-}
+};

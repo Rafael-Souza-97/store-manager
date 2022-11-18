@@ -12,6 +12,7 @@ app.get('/', (_request, response) => {
 });
 
 app.use('/products', productsRouters);
+
 app.use('/sales', salesRouters);
 
 // não remova essa exportação, é para o avaliador funcionar
