@@ -135,6 +135,8 @@ cd store-manager
 <br>
 
 </details>
+  
+<br>
 
 ## Autor
 
