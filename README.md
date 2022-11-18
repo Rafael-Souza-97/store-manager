@@ -150,6 +150,7 @@ cd store-manager
 - [Express](https://expressjs.com/)
 - [Node](https://nodejs.org/en/)
 - [MySQL](https://www.mysql.com/)
+- [MySQL Workbench](https://www.mysql.com/products/workbench/)
 - [Docker](https://www.docker.com/)
 - [Javascript](https://developer.mozilla.org/pt-BR/docs/Web/JavaScript)
 - [Zoom](https://zoom.us/)
