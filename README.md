@@ -132,10 +132,10 @@ cd store-manager
   npm run test:mocha
 ```
 
-</details>
-  
 <br>
 
+</details>
+  
 ## Autor
 
 - [Rafael Souza](https://github.com/Rafael-Souza-97)
