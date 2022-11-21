@@ -2,7 +2,7 @@
 
 Aplicação realizada enquanto aluno da [Trybe](https://www.betrybe.com/) para reforçar os conhecimentos sobre [Node.js](https://nodejs.org/en/)
 conectado à um banco de dados [MySQL](https://www.mysql.com/) através de uma [API RESTful](https://blog.betrybe.com/desenvolvimento-web/api-rest-tudo-sobre/).
-O trabalho consiste em desenvolver uma API com arquitetura MSC (Model-Service-Controller), que é um modelo de arquitetura de software baseado em camadas:
+O trabalho consiste em desenvolver um sistema de gerenciamento de vendas no formato dropshipping, em que é possível procurar, criar, visualizar e deletar produtos e vendas. A aplicação utiliza uma API com arquitetura MSC (Model-Service-Controller), que é um modelo de arquitetura de software baseado em camadas:
 
 - `Model`: Esta camada é responsável por abrigar todo o código que pode acessar os dados no banco de dados ou no sistema de arquivos.
 - `Service`: Esta camada é responsável por validar as regras de negócio da aplicação.
